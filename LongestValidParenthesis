@@ -1,0 +1,30 @@
+import java.util.Stack;
+public class LongestvalidParenthesis {
+
+	public static int isValid ( String s) {
+		Stack <Character> st = new Stack<>();
+		int count=0;
+		for(char c: s.toCharArray()) {
+			if(c=='('|| c=='{'|| c=='[') {
+				st.push(c);
+			}
+			else {
+				if(st.isEmpty()) {
+					continue;
+				}
+				else {
+					char top = st.peek();
+					if(c==')'&& top=='(' || c=='}' && top=='{' || c==']'&& top=='[' ) {
+						st.pop();
+						count++;
+					}
+				}
+			}
+		}
+		return count*2;
+	}
+	public static void main(String [] args ) {
+		String s= "(()";
+		System.out.println(isValid(s));
+	}
+}
