@@ -1,0 +1,17 @@
+
+public class BinaryNumberWithSubString2 {
+	public static boolean BinaryNumberCheck(String s, int n) {
+		for(int i=1; i<=n;++i) {
+			String temp =Integer.toBinaryString(i);
+			if(!s.contains(temp)) {
+				return false ;
+			}
+		}
+		return true;
+	}
+	public static void main(String [] args ) {
+		
+		System.out.println(BinaryNumberCheck("0110",3));
+	}
+
+}
