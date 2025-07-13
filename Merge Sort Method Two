@@ -1,0 +1,62 @@
+package DSA;
+
+import java.util.Arrays;
+
+public class mergeSortLongMethod {
+
+	public static void Sort (int [] nums){
+		
+		int length=nums.length;
+
+		if(length<2) {
+			return ;}
+		
+		int mid = length/2;
+		
+		int [] leftHalf= new int [mid];
+		int [] rightHalf= new int[length-mid];
+		
+		
+		for(int i =0; i<mid;++i){
+			leftHalf[i]= nums[i];
+		}
+		for(int i=mid; i<length;++i) {
+			rightHalf[i-mid] = nums[i];
+		}
+		Sort(leftHalf);
+		Sort(rightHalf);    
+		Merge(nums, leftHalf, rightHalf);
+		}
+
+	
+	public static void Merge(int nums[], int leftHalf[], int rightHalf[]) {
+		int lefLen= leftHalf.length;
+		int rigLen= rightHalf.length;
+		int i=0, j=0, k=0;
+		
+		while(i<lefLen && j<rigLen) {
+			if(leftHalf[i]<rightHalf[j]) {
+				nums[k]=leftHalf[i];
+			i++;
+			}
+			else {
+				nums[k]= rightHalf[j];
+			j++;
+			}
+			k++;
+		}
+		while(i<lefLen) {
+			nums[k++]= leftHalf[i++];
+		}
+		while(j<rigLen) {
+			nums[k++]= rightHalf[j++];
+		}
+	}
+	public static void main(String [] args ) {
+    	int []arr1 = {5, 2, 8, 1, 9};  
+    	Sort(arr1);
+    	System.out.println(Arrays.toString(arr1));
+
+		
+	}
+}
