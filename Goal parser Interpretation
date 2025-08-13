@@ -1,0 +1,22 @@
+class Solution {
+    public String interpret(String command) {
+        String emp="";
+        // int count =0;
+        // char first='(';
+        // char second =')';
+        for(int i =0; i<command.length();++i){
+            if(command.charAt(i)=='(' && command.charAt(i+1)==')'){
+               emp=emp.concat("o");
+            }
+            else  if(command.charAt(i)=='a' && command.charAt(i+1)=='l'){
+               emp=emp.concat("al");
+            }
+            else if (command.charAt(i)=='G'){
+                emp=emp.concat("G");
+            }
+
+        }
+
+        return emp;
+    }
+}
