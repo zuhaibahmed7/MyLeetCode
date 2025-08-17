@@ -11,9 +11,7 @@ class Solution {
             else if (command.charAt(i)=='G'){
                 emp=emp.concat("G");
             }
-
         }
-
         return emp;
     }
 }
