@@ -1,0 +1,280 @@
+
+class Node {
+	Node next;
+	int data;
+	
+	Node(int data){
+		this.data = data;
+		this.next = null;
+	}
+}
+public class LinkedListLabProblem {
+	Node head;
+	
+	public boolean empty() {
+		return head == null;
+	}
+
+	public void insertNodeAtBeg(int data) {
+		Node newNode = new Node(data);
+		if(empty()){
+			head = newNode;
+		}
+		
+		else {newNode.next = head;
+		head = newNode;
+	}
+}
+	public void insertNodeAtLast(int data) {
+		Node newNode = new Node(data);
+		Node temp = this.head;
+		if(empty()) {
+			head = newNode;
+			return;
+		}
+		while(temp.next!=null) {
+			temp = temp.next;
+		}
+		temp.next = newNode;
+		temp = newNode;
+	}
+	
+	public void insertAtPosition(int pos, int data) {
+		Node newNode = new Node(data);
+
+		if(empty()) {
+			return ;
+		}
+		if(pos==1) {
+			newNode.next = head;
+			head= newNode;
+			return;
+		}
+		int count =1;
+		Node temp = head;
+		while(temp!=null && count<pos-1) {
+			temp = temp.next;
+			count++;
+		}
+		newNode.next = temp.next;
+		temp.next = newNode;
+		return;
+		
+	}
+	
+	public void deleteNodeAtBeg(){
+		if(empty()) {
+			return ;
+		}
+		else {
+			head = head.next;
+		}
+	}
+	
+	public void deleteNodeAtLast(){
+		Node temp = this.head;
+		if(empty()) {
+			return ;
+		}
+		if(temp.next == null) {
+			temp=null;
+		}
+		else {
+			while(temp.next.next!=null) {
+				temp = temp.next;
+			}
+			temp.next = null;
+		}
+	}
+	
+	public void deleteMiddleNode() {
+		if(empty()) {
+			return ;
+		}
+		if(head.next==null) {
+			System.out.println("List has only one node which is head: ");
+			return ;
+		}
+		Node fastPtr = head;
+		Node slowPtr = head;
+		Node prev = null;
+		while(fastPtr!=null && fastPtr.next!=null) {
+			fastPtr = fastPtr.next.next;
+			prev = slowPtr;
+			slowPtr = slowPtr.next;
+		}
+		prev.next = slowPtr.next;
+	}
+	
+	public void delSecLastNode() {
+		if(empty()) {
+			return;
+		}
+		if(head.next == null) {
+			System.out.println("List has only one node which is head, there is no second last: ");
+			return ;
+		}
+		if(head.next.next==null) {
+			head = head.next;
+			return;
+		}
+		Node temp = this.head;
+		while(temp.next.next.next!=null) {
+			temp = temp.next; 
+		}
+		temp.next = temp.next.next;
+	}
+	
+	public void deleAtPos(int pos) {
+		if(empty()) {
+			return ;
+		}
+		if(pos==1){
+			head = null;
+		}
+		
+		int count = 1;
+		Node temp = head;
+		while(temp!= null && count<pos-1) {
+			temp = temp.next;
+			count++;
+		}
+		temp.next = temp.next.next;
+	}
+	
+	
+	
+	public Node findMiddleNode() {
+		if(empty()) {
+			return null;
+		}
+		Node fastPtr = head;
+		Node slowPtr = head;
+		while(fastPtr!=null && fastPtr.next!=null) {
+			slowPtr = slowPtr.next;
+			fastPtr = fastPtr.next.next;
+		}
+		return slowPtr;
+	}
+	
+	
+	public void display(Node head){
+		if(empty()) {
+			return;
+		}
+		Node temp = head;
+		while(temp!=null) {
+			System.out.print(temp.data+" ");
+			temp = temp.next;
+		}
+	}
+	
+	//Recursively reverse the list;
+	public Node reverseLinkedList(Node head) {
+		
+		Node current = head;
+		if(current == null || current.next == null ) {
+			return current;
+		}
+		
+		Node newNode = reverseLinkedList(current.next);
+		current.next.next = current;
+		current.next = null;
+		
+		return newNode;
+	}
+	
+	public void display2() {
+		Node temp = reverseLinkedList(this.head);
+		while(temp!=null) {
+			System.out.print(temp.data+" ");
+			temp = temp.next;
+		}
+	}
+	public void revLList() {
+		Node prev = null;
+		Node temp = this.head;
+		while(temp!=null) {
+			Node nextNode = temp.next;
+			temp.next = prev;
+			prev = temp;
+			temp = nextNode;
+		}
+		head = prev;
+	}
+	
+	public LinkedListLabProblem copyList(){
+		LinkedListLabProblem copy = new LinkedListLabProblem();
+		
+		Node current = this.head;
+		while(current!=null){
+			copy.insertNodeAtLast(current.data);
+			current = current.next;
+		}
+		return copy;
+	}
+	
+	public void printingElementInReverseOrderRecur(Node cur) {
+	    if (cur == null) {
+	        return; }
+	    printingElementInReverseOrderRecur(cur.next);
+	    System.out.print(cur.data + " ");
+	}
+
+	public static void main(String [] args ) {
+	
+		
+		LinkedListLabProblem LNL = new LinkedListLabProblem();
+		LNL.insertNodeAtBeg(3);
+		LNL.insertNodeAtBeg(2);
+		LNL.insertNodeAtBeg(1);
+		LNL.insertNodeAtBeg(0);
+		LNL.insertNodeAtLast(4);
+		LNL.deleteNodeAtBeg();
+		LNL.deleteNodeAtLast();
+		LNL.display(LNL.head);
+		System.out.println();
+		System.out.println("Middle node is : " + LNL.findMiddleNode().data);
+		System.out.println();
+		System.out.println(" Deleting the middle node: which is 2");
+		LNL.deleteMiddleNode();
+		LNL.display(LNL.head);
+		LNL.delSecLastNode();
+		LNL.insertNodeAtBeg(4);
+		LNL.insertNodeAtBeg(5);
+		LNL.insertNodeAtBeg(6);
+		LNL.insertNodeAtBeg(7);
+		LNL.display(LNL.head);
+		System.out.println();
+		System.out.println(" Deleting the second last node: which is 4");
+		LNL.delSecLastNode();
+		//Deleting at the position 3:
+		System.out.println();
+		System.out.println(" Deleting the position 3 node: which is 5");
+		System.out.println();
+		LNL.display(LNL.head);
+		System.out.println();
+		LNL.deleAtPos(3);
+		// Inserting the 9 at position 4 ;
+		LNL.insertAtPosition(4, 9);
+		// reversing the list;
+//		LNL.revLList();
+		LNL.display(LNL.head);
+		System.out.println();
+
+		System.out.println("After creating and addding the newNOde in the copied list: ");
+		LinkedListLabProblem LNL2 = LNL.copyList();
+		LNL2.insertNodeAtLast(10);
+		LNL2.display(LNL2.head);
+		
+		System.out.println();
+		System.out.println(" Printing the original list without changes made in the second list: ");
+		LNL.display(LNL.head);
+		
+		LNL2.reverseLinkedList(LNL2.head);
+		LNL2.display2();
+		System.out.println();
+
+		LNL.printingElementInReverseOrderRecur(LNL.head);
+	}
+}
